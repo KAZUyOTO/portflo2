@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paris Commute Comparison — Sayuj Thennat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../project-shared.css">
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../Portfolio.html"><span class="dot"></span> SAYUJ.T</a>
+    <a class="back-link" href="../Portfolio.html#projects">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 6H2M2 6L6 2M2 6L6 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      All projects
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="proj-hero">
+    <div class="crumb"><b>PROJECT 03 / 04</b><span class="sep">·</span> DATA &amp; ANALYTICS <span class="sep">·</span> URBAN MOBILITY</div>
+    <h1 class="proj-h1">Paris Commute <span class="em">Comparison</span> — Bike vs. Metro<span class="acc">.</span></h1>
+    <div class="hero-meta">
+      <span class="chip year">MAY 2024</span>
+      <span class="chip">Python</span>
+      <span class="chip">R5py</span>
+      <span class="chip">GeoPandas</span>
+      <span class="chip">Folium</span>
+      <span class="chip">Google Maps API</span>
+      <span class="chip">GTFS</span>
+      <span class="chip">OpenStreetMap</span>
+    </div>
+  </section>
+
+  <div class="body-grid">
+    <aside class="toc">
+      Sections
+      <ol>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#motivation">Motivation</a></li>
+        <li><a href="#data">Data Sources</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#method">Methodology</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ol>
+    </aside>
+
+    <article class="body-content">
+      <h2 id="intro"><span class="num">01</span>Introduction</h2>
+      <p>As a frequent commuter in Paris, the daily journey can sometimes be a challenge. The bustling metro, while efficient, can become overwhelming during peak hours. Conversely, cycling offers an alternative that promises fresh air and freedom but raises questions about efficiency. This project provides a clear comparison between cycling and metro commute times to <b>Notre-Dame Cathedral</b> from various parts of Paris — to help commuters make informed decisions about their daily travel.</p>
+
+      <h2 id="motivation"><span class="num">02</span>Motivation</h2>
+      <p>The motivation behind this project stems from personal experience. Navigating the Parisian streets and the metro system daily, I often wondered whether cycling would be a faster and more pleasant alternative. That curiosity drove the creation of a comprehensive visualization that could answer this question — not just for me, but for all Parisians.</p>
+
+      <h2 id="data"><span class="num">03</span>Data Sources</h2>
+      <ul>
+        <li><b>Google Maps API</b> — fetched cycling times from points across Paris to Notre-Dame.</li>
+        <li><b>Île-de-France Mobilités Open Data</b> — GTFS data for transit schedules; walking, waiting, riding, transferring times.</li>
+        <li><b>OpenStreetMap (OSM)</b> — geographic data for the visualization.</li>
+      </ul>
+
+      <h2 id="tools"><span class="num">04</span>Tools &amp; Technologies</h2>
+      <ul>
+        <li><b>Python</b> — primary language for processing &amp; visualization.</li>
+        <li><b>R5py</b> — transportation analysis on top of the open-source R5 routing engine by Conveyal.</li>
+        <li><b>GeoPandas</b> — geospatial data manipulation.</li>
+        <li><b>Folium</b> — interactive maps.</li>
+        <li><b>BeautifulSoup</b> — HTML parsing &amp; data extraction.</li>
+      </ul>
+
+      <h2 id="method"><span class="num">05</span>Methodology</h2>
+      <h3>Step 1 — Data collection</h3>
+      <p>Pulled cycling times via Google Maps API for an evenly-spaced grid of points throughout Paris. Downloaded GTFS feeds from Île-de-France Mobilités to compute metro travel times.</p>
+
+      <h3>Step 2 — Data processing</h3>
+      <p>Created a <b>regular hexagonal grid</b> across the city for comprehensive spatial coverage. Cycling times were modelled at a constant 15 km/h. Metro times were computed in R5py — accounting for the entire trip: walking to the stop, waiting, riding, transferring, and walking to destination.</p>
+
+      <h3>Step 3 — Visualization</h3>
+      <p>Combined cycling and metro times into a single <b>GeoDataFrame</b>, joined on hex-cell centroids. For each cell I determined the faster mode and color-coded accordingly — orange where the bike wins, purple where the metro wins, grey where data is missing.</p>
+
+      <h2 id="results"><span class="num">06</span>Results</h2>
+      <p>The final output is an interactive map that clearly shows which areas of Paris are better served by cycling versus the metro.</p>
+
+      <div class="img-card">
+        <img src="../assets/image1.jpeg" alt="Final visualization — bike vs transit time difference across Paris" loading="lazy">
+        <div class="cap"><span><b>Fig 01.</b> Time-difference map · Notre-Dame as anchor</span><span>Folium · R5py · Python</span></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="num">15<span style="font-size:.55em; color:var(--muted)">km/h</span></span><span class="lbl">Avg cycling speed assumed</span></div>
+        <div class="stat"><span class="num">≈600<span style="font-size:.55em; color:var(--muted)">cells</span></span><span class="lbl">Hex grid coverage</span></div>
+        <div class="stat"><span class="num">2<span style="font-size:.55em; color:var(--muted)">modes</span></span><span class="lbl">Bike vs. transit, head-to-head</span></div>
+      </div>
+
+      <h2 id="conclusion"><span class="num">07</span>Conclusion</h2>
+      <p>This project offers practical insights into the efficiency of cycling versus metro travel in Paris. By leveraging open data and modern geospatial analysis, it contributes to a more informed urban-mobility conversation — and gives commuters a tool to optimise their daily routes.</p>
+
+      <h3>Acknowledgments</h3>
+      <ul>
+        <li>Google Maps — API access for cycling times</li>
+        <li>Île-de-France Mobilités — GTFS data</li>
+        <li>OpenStreetMap — geographic data</li>
+        <li>Conveyal — R5 routing engine &amp; R5py</li>
+      </ul>
+    </article>
+  </div>
+
+  <section class="next-proj">
+    <a class="next-link" href="dominant-colors.html">
+      <div>
+        <div class="label">Next project →</div>
+        <div class="title">Dominant Colors in Movie Posters</div>
+      </div>
+      <div class="arr">↗</div>
+    </a>
+  </section>
+</main>
+
+<footer>© 2026 SAYUJ THENNAT &nbsp; · &nbsp; PROJECT 03 OF 04</footer>
+<script src="../project-shared.js"></script>
+</body>
+</html>

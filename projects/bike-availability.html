@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bike Availability in Paris Office Zones — Sayuj Thennat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../project-shared.css">
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../Portfolio.html"><span class="dot"></span> SAYUJ.T</a>
+    <a class="back-link" href="../Portfolio.html#projects">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 6H2M2 6L6 2M2 6L6 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      All projects
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="proj-hero">
+    <div class="crumb"><b>PROJECT 01 / 04</b><span class="sep">·</span> DATA &amp; ANALYTICS <span class="sep">·</span> URBAN MOBILITY</div>
+    <h1 class="proj-h1">Analysis of <span class="em">Bike Availability</span> in Paris Office Zones<span class="acc">.</span></h1>
+    <div class="hero-meta">
+      <span class="chip year">SEP 2024</span>
+      <span class="chip">Python</span>
+      <span class="chip">GeoPandas</span>
+      <span class="chip">Folium</span>
+      <span class="chip">Vélib' Open Data</span>
+      <span class="chip">QGIS</span>
+      <span class="chip">Photoshop</span>
+    </div>
+  </section>
+
+  <div class="body-grid">
+    <aside class="toc">
+      Sections
+      <ol>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#objectives">Objectives</a></li>
+        <li><a href="#data">Data</a></li>
+        <li><a href="#method">Methodology</a></li>
+        <li><a href="#results">Analysis &amp; Results</a></li>
+        <li><a href="#viz">Visualizations</a></li>
+        <li><a href="#future">Future Work</a></li>
+      </ol>
+    </aside>
+
+    <article class="body-content">
+      <h2 id="intro"><span class="num">01</span>Introduction</h2>
+      <p>The use of bicycles for daily commuting in Paris has surged, especially with the rise of <b>Vélib'</b>. With many Parisians using bikes as a primary mode of transport to work, understanding bike availability across the city's office zones is critical. This project analyses Vélib' bikes and docking stations in key business districts: <b>La Défense, Opéra, Montparnasse</b> and others.</p>
+      <p>The objective is to uncover trends in bike usage and availability — helping city planners, businesses and residents optimise commuting strategies and enhance urban mobility.</p>
+
+      <h2 id="objectives"><span class="num">02</span>Project Objectives</h2>
+      <ul>
+        <li>Analyse the availability of mechanical &amp; electric Vélib' bikes across major office zones.</li>
+        <li>Understand the distribution of docking stations and available slots.</li>
+        <li>Track fluctuations during peak commuting hours; identify shortage areas.</li>
+        <li>Lay the foundation for animated time-series visualisations.</li>
+      </ul>
+
+      <h2 id="data"><span class="num">03</span>Data Contents</h2>
+      <p>Real-time <b>GeoJSON</b> data from <b>Open Data Paris</b>. Each station record includes:</p>
+      <ul>
+        <li><b>Station code &amp; name</b></li>
+        <li><b>Operational flags</b> — installed / renting / returning</li>
+        <li><b>Docks available</b> &amp; <b>bikes available</b></li>
+        <li><b>Bike type breakdown</b> — mechanical vs e-bike</li>
+        <li><b>Geospatial</b> — lat/lng for mapping</li>
+        <li><b>Timestamp</b> — when the snapshot was taken</li>
+      </ul>
+
+      <div class="img-card">
+        <img src="../assets/image4.png" alt="GeoPandas dataframe of Vélib station data — Python REPL output" loading="lazy">
+        <div class="cap"><span><b>Fig 01.</b> Loading the Vélib GeoJSON in GeoPandas</span><span>Python · GeoPandas</span></div>
+      </div>
+
+      <h2 id="method"><span class="num">04</span>Methodology</h2>
+      <h3>Data collection</h3>
+      <p>Loaded the Vélib feed in GeoJSON format and processed it with Python — using <b>GeoPandas</b>, <b>Pandas</b> and <b>Folium</b> for geospatial work and visualization.</p>
+
+      <h3>Preprocessing</h3>
+      <ul>
+        <li><b>Cleaning</b> — removed any stations not installed or operational.</li>
+        <li><b>Clipping &amp; filtering</b> — focused on major office zones; filtered stations by proximity using radii of influence around key districts.</li>
+      </ul>
+
+      <h3>Geospatial mapping</h3>
+      <p>With Folium and GeoPandas I plotted every station, marking <b>5 km radius</b> circles around each office zone and colour-coding stations by bike type.</p>
+
+      <div class="img-card">
+        <img src="../assets/image5.png" alt="Initial scatter plot of Vélib bike availability across Paris" loading="lazy">
+        <div class="cap"><span><b>Fig 02.</b> Initial availability scatter — matplotlib</span><span>Python · matplotlib</span></div>
+      </div>
+
+      <div class="img-card">
+        <img src="../assets/image6.png" alt="Folium map showing all Vélib stations across the Paris metropolitan area" loading="lazy">
+        <div class="cap"><span><b>Fig 03.</b> Folium map · all Vélib stations · Paris metro area</span><span>Folium</span></div>
+      </div>
+
+      <div class="img-card">
+        <img src="../assets/image7.png" alt="Condensed station data layered onto a real Paris basemap" loading="lazy">
+        <div class="cap"><span><b>Fig 04.</b> Condensing data onto a real basemap</span><span>QGIS · GeoPandas</span></div>
+      </div>
+
+      <h3>Descriptive analysis</h3>
+      <ul>
+        <li><b>Bike availability</b> — totalled across all stations, split by mechanical &amp; electric.</li>
+        <li><b>Dock availability</b> — summed for parking-capacity insight.</li>
+        <li><b>Peak usage</b> — analysed which stations spike during morning/evening rush.</li>
+      </ul>
+
+      <h2 id="results"><span class="num">05</span>Analysis &amp; Results</h2>
+
+      <div class="stats">
+        <div class="stat"><span class="num">17,701</span><span class="lbl">Total bikes available</span></div>
+        <div class="stat"><span class="num">11,033</span><span class="lbl">Mechanical bikes</span></div>
+        <div class="stat"><span class="num">6,668</span><span class="lbl">E-bikes</span></div>
+      </div>
+      <div class="stats">
+        <div class="stat" style="grid-column: 1 / -1"><span class="num">26,599</span><span class="lbl">Total docks available across all stations</span></div>
+      </div>
+
+      <h3>Distribution across office zones</h3>
+      <p>The highest concentrations appeared near <b>La Défense</b> and <b>Saint-Lazare</b>, where commuters rely on bike rentals for the "last mile". These zones also showed the largest peak-hour fluctuations, suggesting room for better dock management.</p>
+
+      <h3>Mechanical vs Electric</h3>
+      <p>E-bikes — though fewer in number — are increasingly popular for longer commutes. <b>Montparnasse</b> and <b>Opéra</b> saw a marked morning-rush jump in e-bike usage.</p>
+
+      <h2 id="viz"><span class="num">06</span>Visualizations</h2>
+      <p>Built geospatial heatmaps showing the density of bike stations and real-time availability — colour-coded by bike type. Final overlay was finished in <b>QGIS</b> and <b>Photoshop</b>.</p>
+
+      <div class="img-card dark">
+        <img src="../assets/image8.png" alt="Final dark-themed map: Vélib bike availability through the week, with office zones highlighted" loading="lazy">
+        <div class="cap"><span><b>Fig 05.</b> Availability of Vélib bikes Mon–Fri · office zones marked</span><span>Python · QGIS · Photoshop</span></div>
+      </div>
+
+      <h2 id="future"><span class="num">07</span>Future Work</h2>
+      <ul>
+        <li><b>Time-series animation</b> — track availability fluctuations through the week to surface peaks &amp; chronic shortages.</li>
+        <li><b>Predictive modelling</b> — ML models to forecast bike demand by zone and inform planning.</li>
+        <li><b>Policy recommendations</b> — guidance for city planners on station placement and rebalancing.</li>
+      </ul>
+    </article>
+  </div>
+
+  <section class="next-proj">
+    <a class="next-link" href="uefa-euro.html">
+      <div>
+        <div class="label">Next project →</div>
+        <div class="title">UEFA EURO Performance Visualization</div>
+      </div>
+      <div class="arr">↗</div>
+    </a>
+  </section>
+</main>
+
+<footer>© 2026 SAYUJ THENNAT &nbsp; · &nbsp; PROJECT 01 OF 04</footer>
+<script src="../project-shared.js"></script>
+</body>
+</html>
